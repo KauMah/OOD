@@ -126,4 +126,44 @@ abstract class AbstractDuration implements Duration {
   protected static int secondsOf(long inSeconds) {
     return (int) (inSeconds % 60);
   }
+
+  @Override
+  public String format(String template) {
+    String out = "";
+    for (int i = 0; i < template.length(); i++) {
+      if (template.charAt(i) == '%') {
+        switch(template.charAt(++i)) {
+          case 't':
+            out += inSeconds();
+            break;
+          case 'H':
+            out += String.format("%02d", this.hoursOf(inSeconds()));
+            break;
+          case 'h':
+            out += this.hoursOf(inSeconds());
+            break;
+          case 'M':
+            out += String.format("%02d", this.minutesOf(inSeconds()));
+            break;
+          case 'm':
+            out += this.minutesOf(inSeconds());
+            break;
+          case 'S':
+            out += String.format("%02d", this.secondsOf(inSeconds()));
+            break;
+          case 's':
+            out += this.secondsOf(inSeconds());
+            break;
+          case '%':
+            out += '%';
+            break;
+          default:
+            throw new IllegalArgumentException("Invalid template string");
+        }
+      } else {
+        out += template.charAt(i);
+      }
+    }
+    return out;
+  }
 }

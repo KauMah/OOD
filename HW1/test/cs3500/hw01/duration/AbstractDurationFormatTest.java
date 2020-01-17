@@ -28,9 +28,25 @@ public abstract class AbstractDurationFormatTest {
   // "new HmsDuration(...)"
 
 
+  @Test
+  public void formatEveryTypeTest() {
+    assertEquals(hms(4, 5, 17).format("%t %H %h %M %S %s %%"), "14717 04 4 05 17 17 %");
+  }
 
+  @Test
+  public void compactFormatTest() {
+    assertEquals(sec(14717).format("%H:%M:%S"), "04:05:17");
+  }
 
-  
+  @Test(expected = NullPointerException.class)
+  public void nullFormatStringTest() {
+    hms(4,5,17).format(null);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void malformedTemplateTest() {
+    assertEquals(hms(4, 5, 17).format("%Jh%%"), "04h%");
+  }
 
   /*
     Leave this section alone: It contains two abstract methods to
