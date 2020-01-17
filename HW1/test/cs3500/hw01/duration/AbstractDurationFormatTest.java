@@ -38,7 +38,7 @@ public abstract class AbstractDurationFormatTest {
     assertEquals(sec(14717).format("%H:%M:%S"), "04:05:17");
   }
 
-  @Test(expected = NullPointerException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void nullFormatStringTest() {
     hms(4,5,17).format(null);
   }
