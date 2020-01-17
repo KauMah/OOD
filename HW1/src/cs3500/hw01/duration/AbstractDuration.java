@@ -129,6 +129,7 @@ abstract class AbstractDuration implements Duration {
 
   @Override
   public String format(String template) {
+    if (template == null) throw new NullPointerException("Null string received as input");
     String out = "";
     for (int i = 0; i < template.length(); i++) {
       if (template.charAt(i) == '%') {
