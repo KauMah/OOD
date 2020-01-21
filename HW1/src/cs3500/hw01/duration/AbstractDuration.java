@@ -132,6 +132,9 @@ abstract class AbstractDuration implements Duration {
     if (template == null) {
       throw new IllegalArgumentException("Null string received as input");
     }
+    if (template.length() != 0 && template.charAt(template.length() - 1) == '%') {
+      throw new IllegalArgumentException("Malformed template");
+    }
     String out = "";
     for (int i = 0; i < template.length(); i++) {
       if (template.charAt(i) == '%') {

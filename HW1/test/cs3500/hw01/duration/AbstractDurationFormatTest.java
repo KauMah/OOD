@@ -48,6 +48,16 @@ public abstract class AbstractDurationFormatTest {
     assertEquals(hms(4, 5, 17).format("%Jh%%"), "04h%");
   }
 
+  @Test
+  public void emptyTemplateTest() {
+    assertEquals(sec(1232).format(""), "");
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void endsInPercentTest() {
+    sec(1232).format("hello%");
+  }
+
   /*
     Leave this section alone: It contains two abstract methods to
     create Durations, and concrete implementations of this testing class
